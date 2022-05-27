@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import firebase from "../../services/firebase";
+import {db} from '../../services/firebase'
 
 export const usePost = (str) => {
   const [post, setPost] = useState([]);
 
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection(str)
-      .onSnapshot((snapshot) => {
-        console.log(snapshot);
-      });
+    db.collection(str).onSnapshot((snapshot)=>setPost(snapshot.docs.map((doc)=>(
+      {
+        id: doc.id,
+        data:doc.data()
+      }
+    ))))
   }, []);
 
   return post;

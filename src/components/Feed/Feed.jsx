@@ -5,19 +5,43 @@ import {
   EventNoteRounded,
   CalendarViewDayRounded,
 } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputOption from "../InputOption/InputOption";
 import Post from "../Post/Post";
-import {usePost} from '../Post/usePost'
+import { readPosts, writePost } from "../../services/post/post";
+
+import { serverTimestamp } from "firebase/firestore/lite";
 import "./Feed.css";
+
 const Feed = () => {
   const [posts, setPosts] = useState([]);
+  const [message, setMessage] = useState("");
 
-  const post = usePost("post")
-  console.log(3322, post)
-
+  const handleChangeInput = (e) => {
+    setMessage(e.target.value);
+  };
+  useEffect(() => {
+    readPosts().then((snapshot) =>
+      setPosts(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      )
+    );
+  }, []);
   const handleSendPost = (e) => {
-      e.preventDefault()
+    e.preventDefault();
+    const newPost = {
+      name: "Ramin Khodaie",
+      description: "front-end devaloper",
+      message: message,
+      photoUrl: "",
+      timestamp: serverTimestamp(),
+    };
+    console.log(555, newPost);
+    writePost(newPost);
+    setMessage("");
   };
   return (
     <div className="feed">
@@ -25,8 +49,13 @@ const Feed = () => {
       <div className="feed__inputContainer">
         <div className="feed__input">
           <CreateRounded />
-          <form>
-            <input type="text" placeholder="start a post" />
+          <form onSubmit={handleSendPost}>
+            <input
+              type="text"
+              placeholder="start a post"
+              value={message}
+              onChange={handleChangeInput}
+            />
             <button onClick={handleSendPost} type="submit">
               send
             </button>
@@ -48,7 +77,15 @@ const Feed = () => {
         </div>
       </div>
       {/* posts */}
-      <Post />
+      {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
+        <Post
+          key={id}
+          name={name}
+          description={description}
+          photoUrl={photoUrl}
+          message={message}
+        />
+      ))}
     </div>
   );
 };
