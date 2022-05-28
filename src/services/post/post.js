@@ -1,13 +1,22 @@
-import { set, ref } from 'firebase/database';
-import { collection, getDocs, addDoc } from 'firebase/firestore/lite';
+import { query } from 'firebase/database';
+import { collection, getDocs, addDoc, orderBy } from 'firebase/firestore/lite';
 import { db, auth } from '../firebase/firebase'
 
 
 
 export const readPosts = async () => {
-    const col = collection(db, "posts");
-    const snapshot = await getDocs(col);
-    return snapshot
+
+    try{
+
+        const col = collection(db, "posts");
+        const queryPost = query(col, orderBy("timestamp","desc"));
+        const snapshots = await getDocs(queryPost);
+        console.log(777, snapshots)
+        return snapshots;
+    }catch(error){
+        console.log(error)
+    }
+
 }
 
 export const writePost = ({ name, description, message, timestamp, photoUrl }) => {

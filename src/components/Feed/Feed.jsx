@@ -5,7 +5,7 @@ import {
   EventNoteRounded,
   CalendarViewDayRounded,
 } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import InputOption from "../InputOption/InputOption";
 import Post from "../Post/Post";
 import { readPosts, writePost } from "../../services/post/post";
@@ -16,6 +16,7 @@ import "./Feed.css";
 const Feed = () => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
+  const inputRef = useRef();
 
   const handleChangeInput = (e) => {
     setMessage(e.target.value);
@@ -29,7 +30,7 @@ const Feed = () => {
         }))
       )
     );
-  }, []);
+  }, [message]);
   const handleSendPost = (e) => {
     e.preventDefault();
     const newPost = {
@@ -39,9 +40,9 @@ const Feed = () => {
       photoUrl: "",
       timestamp: serverTimestamp(),
     };
-    console.log(555, newPost);
     writePost(newPost);
-    setMessage("");
+    const emptyInput = "";
+    setMessage(emptyInput);
   };
   return (
     <div className="feed">
@@ -55,6 +56,7 @@ const Feed = () => {
               placeholder="start a post"
               value={message}
               onChange={handleChangeInput}
+              ref={inputRef}
             />
             <button onClick={handleSendPost} type="submit">
               send
