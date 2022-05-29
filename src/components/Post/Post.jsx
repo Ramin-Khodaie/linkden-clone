@@ -9,10 +9,11 @@ import InputOption from "../InputOption/InputOption";
 
 import "./Post.css";
 const Post = ({ name, description, message, photoUrl }) => {
+  console.log(photoUrl)
   return (
     <div className="post">
       <div className="post__header">
-        <Avatar />
+        <Avatar src={photoUrl}/>
         <div className="post__info">
           <h2>{name}</h2>
           <p>{description}</p>

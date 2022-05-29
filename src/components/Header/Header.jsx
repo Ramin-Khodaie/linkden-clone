@@ -6,8 +6,10 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import ChatIcon from "@mui/icons-material/Chat";
 import "./Header.css";
 import HeaderOption from "./HeaderOption";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
+  const { user } = useSelector((state) => state.user);
   return (
     <div className="header">
       <div className="header__left">
@@ -24,10 +26,7 @@ const Header = () => {
         <HeaderOption Icon={BusinessCenterIcon} title="Job" />
         <HeaderOption Icon={ChatIcon} title="Messaging" />
         <HeaderOption Icon={NotificationsIcon} title="Notification" />
-        <HeaderOption
-          avatar="https://media-exp1.licdn.com/dms/image/C5603AQG4HE9lYFeN1w/profile-displayphoto-shrink_100_100/0/1587376025161?e=1658966400&v=beta&t=L-QmqDv75xTnMlvya3r81cLxT502oZ29lIWyaKbME7I"
-          title="Me"
-        />
+        {user && <HeaderOption user={user} title="Me" />}
       </div>
     </div>
   );

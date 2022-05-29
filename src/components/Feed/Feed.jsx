@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import InputOption from "../InputOption/InputOption";
 import Post from "../Post/Post";
 import { readPosts, writePost } from "../../services/post/post";
-
+import { useSelector } from "react-redux";
 import { serverTimestamp } from "firebase/firestore/lite";
 import "./Feed.css";
 
@@ -17,7 +17,8 @@ const Feed = () => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
   const inputRef = useRef();
-
+  const {user} = useSelector((state)=>state.user)
+  console.log(222, user)
   const handleChangeInput = (e) => {
     setMessage(e.target.value);
   };
@@ -34,10 +35,10 @@ const Feed = () => {
   const handleSendPost = (e) => {
     e.preventDefault();
     const newPost = {
-      name: "Ramin Khodaie",
+      name: user.displayName,
       description: "front-end devaloper",
       message: message,
-      photoUrl: "",
+      photoUrl: user.photoUrl,
       timestamp: serverTimestamp(),
     };
     writePost(newPost);
