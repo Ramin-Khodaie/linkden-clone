@@ -11,14 +11,15 @@ import Post from "../Post/Post";
 import { readPosts, writePost } from "../../services/post/post";
 import { useSelector } from "react-redux";
 import { serverTimestamp } from "firebase/firestore/lite";
+import FlipMove from "react-flip-move";
 import "./Feed.css";
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
   const [message, setMessage] = useState("");
   const inputRef = useRef();
-  const {user} = useSelector((state)=>state.user)
-  console.log(222, user)
+  const { user } = useSelector((state) => state.user);
+  console.log(222, user);
   const handleChangeInput = (e) => {
     setMessage(e.target.value);
   };
@@ -80,15 +81,18 @@ const Feed = () => {
         </div>
       </div>
       {/* posts */}
-      {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
-        <Post
-          key={id}
-          name={name}
-          description={description}
-          photoUrl={photoUrl}
-          message={message}
-        />
-      ))}
+
+      <FlipMove>
+        {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
+          <Post
+            key={id}
+            name={name}
+            description={description}
+            photoUrl={photoUrl}
+            message={message}
+          />
+        ))}
+      </FlipMove>
     </div>
   );
 };

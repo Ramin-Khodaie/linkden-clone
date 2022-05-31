@@ -14,6 +14,7 @@ const Header = () => {
     <div className="header">
       <div className="header__left">
         <img src="./linkdenIcon.svg" />
+
         <div className="header__search">
           <SearchIcon />
           <input type="text" />

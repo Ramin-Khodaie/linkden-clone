@@ -6,14 +6,15 @@ import {
 } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 import InputOption from "../InputOption/InputOption";
+import { forwardRef } from "react";
 
 import "./Post.css";
-const Post = ({ name, description, message, photoUrl }) => {
-  console.log(photoUrl)
+const Post = forwardRef(({ name, description, message, photoUrl }, ref) => {
+  console.log(photoUrl);
   return (
-    <div className="post">
+    <div className="post" ref={ref}>
       <div className="post__header">
-        <Avatar src={photoUrl}/>
+        <Avatar src={photoUrl} />
         <div className="post__info">
           <h2>{name}</h2>
           <p>{description}</p>
@@ -31,6 +32,6 @@ const Post = ({ name, description, message, photoUrl }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Post;

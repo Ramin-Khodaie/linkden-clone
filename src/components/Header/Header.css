@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   border-bottom: 0.1px solid lightgray;
   background-color: white;
   padding-top: 10px;
@@ -13,6 +13,7 @@
 
 .header__left {
   display: flex;
+  flex: 0.2;
 }
 .header__left > img {
   object-fit: contain;
@@ -26,6 +27,7 @@
   align-items: center;
   border-radius: 5px;
   height: 40px;
+  width: 400px;
   color: gray;
   background-color: #eef3f8;
 }
@@ -34,9 +36,12 @@
   outline: none;
   border: none;
   background: none;
+  width: 100%;
+  height: 100%;
 }
 
 .header__right {
   display: flex;
   flex-direction: row;
+  flex:0.5;
 }
