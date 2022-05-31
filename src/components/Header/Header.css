@@ -13,7 +13,7 @@
 
 .header__left {
   display: flex;
-  flex: 0.2;
+ 
 }
 .header__left > img {
   object-fit: contain;
@@ -43,5 +43,12 @@
 .header__right {
   display: flex;
   flex-direction: row;
-  flex:0.5;
+ 
 }
+
+@media only screen and (max-width: 1024px) {
+  .header__search{
+    display: none;
+  }
+}
+

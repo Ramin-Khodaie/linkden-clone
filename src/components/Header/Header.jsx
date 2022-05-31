@@ -6,7 +6,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import ChatIcon from "@mui/icons-material/Chat";
 import "./Header.css";
 import HeaderOption from "./HeaderOption";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 
 const Header = () => {
   const { user } = useSelector((state) => state.user);
