@@ -31,3 +31,14 @@
     display: flex;
     justify-content: space-evenly;
 }
+
+.post__likes{
+    margin-top: 15px;
+    padding: 2px;
+    border-bottom: 1px solid lightgray;
+}
+
+.post__likes > span{
+    margin-left: 5px;
+    color: #0a66c2 !important;
+}

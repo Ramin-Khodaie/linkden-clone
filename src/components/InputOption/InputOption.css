@@ -15,3 +15,7 @@
 .inputOption > h4{
     margin-left: 5px;
 }
+
+.inputOption > span{
+    margin-right: 5px;
+}

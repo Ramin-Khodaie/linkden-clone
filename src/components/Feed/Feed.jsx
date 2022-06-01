@@ -13,23 +13,25 @@ import { useSelector } from "react-redux";
 import { serverTimestamp } from "firebase/firestore/lite";
 import FlipMove from "react-flip-move";
 import "./Feed.css";
+import { Skeleton } from "@mui/material";
 
 const Feed = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(undefined);
   const [message, setMessage] = useState("");
   const inputRef = useRef();
   const { user } = useSelector((state) => state.user);
-  console.log(222, user);
   const handleChangeInput = (e) => {
     setMessage(e.target.value);
   };
   useEffect(() => {
     readPosts().then((snapshot) =>
       setPosts(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
+        snapshot.docs.map((doc) => {
+          return {
+            id: doc.id,
+            data: doc.data(),
+          };
+        })
       )
     );
   }, [message]);
@@ -40,6 +42,7 @@ const Feed = () => {
       description: "front-end devaloper",
       message: message,
       photoUrl: user.photoUrl,
+      likes:[],
       timestamp: serverTimestamp(),
     };
     writePost(newPost);
@@ -82,16 +85,30 @@ const Feed = () => {
       </div>
       {/* posts */}
 
-      <FlipMove>
-        {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
-          <Post
-            key={id}
-            name={name}
-            description={description}
-            photoUrl={photoUrl}
-            message={message}
-          />
+      {posts === undefined &&
+        [...Array(10)].map((arr) => (
+          <Skeleton
+            style={{
+              backgroundColor: "white",
+              height: "100px",
+              borderRadius: "10px",
+            }}
+          ></Skeleton>
         ))}
+      <FlipMove>
+        {posts &&
+          posts.map(
+            ({ id, data: { name, description, message, photoUrl } }) => (
+              <Post
+                key={id}
+                name={name}
+                description={description}
+                photoUrl={photoUrl}
+                message={message}
+                postId={id}
+              />
+            )
+          )}
       </FlipMove>
     </div>
   );
