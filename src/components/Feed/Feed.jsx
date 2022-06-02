@@ -57,6 +57,7 @@ const Feed = () => {
           <CreateRounded />
           <form onSubmit={handleSendPost}>
             <input
+              disabled={true}
               type="text"
               placeholder="start a post"
               value={message}

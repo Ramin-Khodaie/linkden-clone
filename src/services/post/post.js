@@ -32,11 +32,10 @@ export const writePost = ({ name, description, message, timestamp, photoUrl, lik
     }
 }
 
-export const toggleLike = (postid, userid) => {
-
+export const toggleLike =async (postid, userid) => {
     try {
         const docRef = doc(db, "posts", postid)
-        runTransaction(db, (transaction) => {
+        await runTransaction(db, (transaction) => {
             return transaction.get(docRef).then((d) => {
                 const newLike = doLikeUnlike(d.data().likes, userid)
                 transaction.update(docRef, { likes: newLike })

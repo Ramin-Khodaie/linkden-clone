@@ -19,18 +19,28 @@
     padding: 10px;
     padding-left: 15px;
 
+    /* background-color: rgba(0, 0, 0, 0.08); */
 }
 
 .feed__input > form{
     display: flex;
-    width: 100%;
+    width: 100%;    
 }
-
+.feed__input:hover{
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.08) !important;
+}
 .feed__input >form>input{
     border: none;
     flex:1;
     margin-left: 10px;
     outline-width: 0;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: transparent;
+}
+.feed__input >form>input::placeholder{
+    font-size: 14px;
     font-weight: 600;
 }
 

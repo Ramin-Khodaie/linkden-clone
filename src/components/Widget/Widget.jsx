@@ -31,15 +31,8 @@ const Widget = () => {
         "   Welsh compulsory sex education plans face legal challenge",
         "13 April 2021 5 min read"
       )}
-      {newsArticles(
-        "Pick the best tech experts with our unique Peer-To-Peer Screening",
-        "13 April 2021 5 min read"
-      )}
-      {newsArticles(
-        "The Most Efficient Way to Debug the Simulation ",
-        "13 April 2021 5 min read"
-      )}
-       
+     
+    
     </div>
   );
 };

@@ -3,6 +3,7 @@ import {
   SendOutlined,
   ShareOutlined,
   ThumbUpAltOutlined,
+  ThumbUpAltRounded,
 } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 import InputOption from "../InputOption/InputOption";
@@ -17,14 +18,18 @@ const Post = forwardRef(
     const { user } = useSelector((state) => state.user);
 
     const [likeNumbers, setLikeNumbers] = useState(0);
+    const [togglelikeIcon, setTooglelikeIcon] = useState(false);
 
     const handleClickLike = (e) => {
-      toggleLike(postId, user.uid);
-      getPostLike(postId).then((data) => {
-        const likesArray = data.data().likes;
-        console.log(777, likesArray)
-        setLikeNumbers(likesArray.length);
-      });
+      setTooglelikeIcon(!togglelikeIcon);
+      toggleLike(postId, user.uid)
+        .then(() =>
+          getPostLike(postId).then((data) => {
+            const likesArray = data.data().likes;
+            setLikeNumbers(likesArray.length);
+          })
+        )
+        .catch((error) => console.log(error));
     };
     return (
       <div className="post" ref={ref}>
@@ -43,9 +48,9 @@ const Post = forwardRef(
         </div>
         <div className="post__bottom">
           <InputOption
-            Icon={ThumbUpAltOutlined}
+            Icon={!togglelikeIcon ? ThumbUpAltOutlined : ThumbUpAltRounded}
             title="Like"
-            color="gray"
+            color={!togglelikeIcon ? "gray" : "#0a66c2"}
             likeNumbers={likeNumbers}
             onClick={handleClickLike}
           />
