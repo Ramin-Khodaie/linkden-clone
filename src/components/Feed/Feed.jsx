@@ -14,10 +14,15 @@ import { serverTimestamp } from "firebase/firestore/lite";
 import FlipMove from "react-flip-move";
 import "./Feed.css";
 import { Skeleton } from "@mui/material";
+import Modal from "../Modal/Modal";
+import NewPost from "../NewPost/NewPost";
+import AdditionalsToPost from "../AdditionalsToPost/AdditionalsToPost.jsx";
 
 const Feed = () => {
   const [posts, setPosts] = useState(undefined);
+  const [componentName, setComponentName] = useState(undefined);
   const [message, setMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
   const inputRef = useRef();
   const { user } = useSelector((state) => state.user);
   const handleChangeInput = (e) => {
@@ -42,20 +47,41 @@ const Feed = () => {
       description: "front-end devaloper",
       message: message,
       photoUrl: user.photoUrl,
-      likes:[],
+      likes: [],
       timestamp: serverTimestamp(),
     };
     writePost(newPost);
     const emptyInput = "";
     setMessage(emptyInput);
   };
+
+  const handleChangeComponent = () => {
+    setShowModal(true);
+    setComponentName(
+      <AdditionalsToPost
+        onChangeComponent={() =>
+          setComponentName(
+            <NewPost user={user} onChangeComponent={handleChangeComponent} />
+          )
+        }
+      />
+    );
+  };
+  const CreateNewPost = (e) => {
+    setShowModal(true);
+    setComponentName(
+      <NewPost user={user} onChangeComponent={handleChangeComponent} />
+    );
+  };
+
+  
   return (
     <div className="feed">
       {/* input form container */}
       <div className="feed__inputContainer">
         <div className="feed__input">
           <CreateRounded />
-          <form onSubmit={handleSendPost}>
+          <form onClick={CreateNewPost}>
             <input
               disabled={true}
               type="text"
@@ -64,11 +90,18 @@ const Feed = () => {
               onChange={handleChangeInput}
               ref={inputRef}
             />
-            <button onClick={handleSendPost} type="submit">
-              send
-            </button>
+            <button>send</button>
           </form>
         </div>
+        {showModal && (
+          <Modal
+            showDrop={showModal}
+            closeDrop={() => setShowModal(false)}
+            component={componentName}
+          >
+            {/* <NewPost user={user} /> */}
+          </Modal>
+        )}
         <div className="feed__inputOptions">
           <InputOption Icon={ImageRounded} title="Photo" color="#70B5F9" />
           <InputOption

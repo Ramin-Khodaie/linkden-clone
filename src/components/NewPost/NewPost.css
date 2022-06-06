@@ -1,0 +1,107 @@
+.newpost {
+  background-color: white;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+/*header*/
+.newpost__header {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  height: 30px;
+  border-bottom: 1px solid lightgray;
+}
+
+.newpost__creatorinfo {
+  margin-top: 20px;
+  display: flex;
+}
+.newpost__creatorinfo > p {
+  font-size: 20px;
+  font-weight: 500;
+}
+.newpost__avatar {
+  margin-right: 10px;
+}
+
+/*body*/
+.newpost__body {
+  flex: 1;
+  margin-top: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.newpost__body > input {
+  width: 100%;
+  border: none;
+}
+.newpost__body > input:focus-visible {
+  outline: none;
+}
+.newpost__body > input::placeholder {
+  font-size: 18px;
+  font-weight: 500;
+}
+.newpost__body-hashtag {
+  margin: 0px 0px 15px 5px !important;
+  color: #0a66c2 !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  cursor: pointer;
+  transition: all 0.3s ease !important;
+}
+
+/*footer*/
+.newpost__footer {
+  height: 30px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.newpost__footer-icons {
+  display: flex;
+  border-right: 1px solid rgba(0, 0, 0, 0.09);
+  flex-direction: row;
+}
+
+.newpost__footer-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  flex: 1;
+}
+
+.newpost__footer-anybtn {
+  color: rgba(0, 0, 0, 0.6) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  text-transform: capitalize !important;
+  margin-left: 5px !important;
+  cursor: pointer;
+  border-radius: 15px !important;
+}
+
+.newpost__footer-anybtn:hover {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.newpost__footer-postbtn {
+  padding: 0 !important;
+  font-size: 16x !important;
+  font-weight: 700 !important;
+  text-transform: capitalize !important;
+  padding-top: 2 !important;
+  border-radius: 15px !important;
+  border-radius: 15 !important;
+  background-color: #0a66c2 !important;
+  color: white !important;
+}
+
+.newpost__footer-postbtn:hover {
+  background-color: #004182 !important;
+}

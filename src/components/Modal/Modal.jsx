@@ -1,10 +1,10 @@
 import Backdrop from "../Backdrop/Backdrop";
-
-const Modal = ({ closeDrop, showDrop, children }) => {
+import './Modal.css'
+const Modal = (props) => {
   return (
     <>
-      <Backdrop closeBackDrop={closeDrop} showBackDrop={showDrop} />
-      <div>{children}</div>
+      <Backdrop closeBackDrop={props.closeDrop} showBackDrop={props.showDrop} />
+      <div className="Modal">{props.component}</div>
     </>
   );
 };
