@@ -20,10 +20,12 @@ import AdditionalsToPost from "../AdditionalsToPost/AdditionalsToPost.jsx";
 
 const Feed = () => {
   const [posts, setPosts] = useState(undefined);
-  const [componentName, setComponentName] = useState(undefined);
+  const [component, setComponent] = useState(undefined);
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
+
   const inputRef = useRef();
+
   const { user } = useSelector((state) => state.user);
   const handleChangeInput = (e) => {
     setMessage(e.target.value);
@@ -40,41 +42,47 @@ const Feed = () => {
       )
     );
   }, [message]);
-  const handleSendPost = (e) => {
-    e.preventDefault();
-    const newPost = {
-      name: user.displayName,
-      description: "front-end devaloper",
-      message: message,
-      photoUrl: user.photoUrl,
-      likes: [],
-      timestamp: serverTimestamp(),
-    };
-    writePost(newPost);
-    const emptyInput = "";
-    setMessage(emptyInput);
-  };
 
+  // const handleSendPost = (e) => {
+  //   e.preventDefault();
+  //   const newPost = {
+  //     name: user.displayName,
+  //     description: "front-end devaloper",
+  //     message: message,
+  //     photoUrl: user.photoUrl,
+  //     likes: [],
+  //     timestamp: serverTimestamp(),
+  //   };
+  //   writePost(newPost);
+  //   const emptyInput = "";
+  //   setMessage(emptyInput);
+  // };
+
+  const handleBack = () => {
+    setComponent(
+      <NewPost user={user} onChangeComponent={handleChangeComponent} />
+    );
+  };
   const handleChangeComponent = () => {
     setShowModal(true);
-    setComponentName(
+    setComponent(
       <AdditionalsToPost
-        onChangeComponent={() =>
-          setComponentName(
-            <NewPost user={user} onChangeComponent={handleChangeComponent} />
-          )
-        }
+        backToNewPost={handleBack}
+        closeModal={handleCloseModal}
       />
     );
   };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
   const CreateNewPost = (e) => {
     setShowModal(true);
-    setComponentName(
+    setComponent(
       <NewPost user={user} onChangeComponent={handleChangeComponent} />
     );
   };
 
-  
   return (
     <div className="feed">
       {/* input form container */}
@@ -97,7 +105,7 @@ const Feed = () => {
           <Modal
             showDrop={showModal}
             closeDrop={() => setShowModal(false)}
-            component={componentName}
+            component={component}
           >
             {/* <NewPost user={user} /> */}
           </Modal>
@@ -132,7 +140,7 @@ const Feed = () => {
       <FlipMove>
         {posts &&
           posts.map(
-            ({ id, data: { name, description, message, photoUrl } }) => (
+            ({ id, data: { name, description, message, photoUrl, likes } }) => (
               <Post
                 key={id}
                 name={name}
@@ -140,6 +148,7 @@ const Feed = () => {
                 photoUrl={photoUrl}
                 message={message}
                 postId={id}
+                likes={likes}
               />
             )
           )}

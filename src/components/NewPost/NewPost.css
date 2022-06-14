@@ -10,7 +10,7 @@
   padding: 0;
   margin: 0;
   height: 30px;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
 }
 
 .newpost__creatorinfo {
@@ -36,6 +36,9 @@
 .newpost__body > input {
   width: 100%;
   border: none;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
 }
 .newpost__body > input:focus-visible {
   outline: none;
@@ -102,6 +105,15 @@
   color: white !important;
 }
 
+.newpost__footer-postbtn-disable{
+  background-color: lightgray !important;  
+}
+
+.newpost__footer-postbtn-disable:hover{
+  cursor: not-allowed !important;
+  /* pointer-events: none !important; */
+
+}
 .newpost__footer-postbtn:hover {
   background-color: #004182 !important;
 }

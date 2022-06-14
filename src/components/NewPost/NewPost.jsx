@@ -8,20 +8,25 @@ import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import PollIcon from "@mui/icons-material/Poll";
 import { forwardRef, useState } from "react";
+import CustomIconButton from "../CustomIconButton/CustomIconButton";
 
 import "./NewPost.css";
 
-import CustomIconButton from "../CustomIconButton/CustomIconButton";
-import { StarRateTwoTone } from "@mui/icons-material";
-import AdditionalsToPost from "../AdditionalsToPost/AdditionalsToPost.jsx";
-import Modal from "../Modal/Modal";
 const NewPost = forwardRef(({ user, onChangeComponent }, ref) => {
-  const [state, setState] = useState(false);
-
-  const showAdditionaltoPost = () => {
-    console.log(8899, "Aditio")
-    onChangeComponent()
+  const newPost = {
+    body: "",
   };
+  const [state, setState] = useState(newPost);
+  const showAddtoPost = () => {
+    onChangeComponent();
+  };
+
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+
+    setState({ ...state, [name]: value });
+  };
+  console.log(666, state);
   return (
     <div className="newpost" ref={ref}>
       <div className="newpost__header">
@@ -34,7 +39,13 @@ const NewPost = forwardRef(({ user, onChangeComponent }, ref) => {
         </div>
       </div>
       <div className="newpost__body">
-        <input placeholder="What do you want to talk about?" />
+        <input
+          placeholder="What do you want to talk about?"
+          type="text"
+          name="body"
+          value={state.body}
+          onChange={handleChangeInput}
+        />
         <Typography variant="body1" className="newpost__body-hashtag">
           Add hahstag
         </Typography>
@@ -75,7 +86,7 @@ const NewPost = forwardRef(({ user, onChangeComponent }, ref) => {
             Icon={MoreHorizIcon}
             size="small"
             tooltip="Add to your post"
-            handleClick={showAdditionaltoPost}
+            handleClick={showAddtoPost}
           />
         </div>
         <div className="newpost__footer-btns">
@@ -87,10 +98,17 @@ const NewPost = forwardRef(({ user, onChangeComponent }, ref) => {
           >
             Anyone
           </Button>
-          <Button className="newpost__footer-postbtn">Post</Button>
+          <Button
+            disabled={!state.body}
+            className={`newpost__footer-postbtn ${
+              !state.body ? "newpost__footer-postbtn-disable" : ""
+            }`}
+            onClick={() => console.log("sfjkldfjskdjf")}
+          >
+            Post
+          </Button>
         </div>
       </div>
-     
     </div>
   );
 });

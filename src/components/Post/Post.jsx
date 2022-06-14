@@ -14,14 +14,15 @@ import { useSelector } from "react-redux";
 import "./Post.css";
 
 const Post = forwardRef(
-  ({ name, description, message, photoUrl, postId }, ref) => {
+  ({ name, description, message, photoUrl, postId, likes }, ref) => {
     const { user } = useSelector((state) => state.user);
 
-    const [likeNumbers, setLikeNumbers] = useState(0);
+    const [likeNumbers, setLikeNumbers] = useState(likes.length);
     const [togglelikeIcon, setTooglelikeIcon] = useState(false);
 
     const handleClickLike = (e) => {
       setTooglelikeIcon(!togglelikeIcon);
+      //here we update likes array  inside of post object depends on user's id.
       toggleLike(postId, user.uid)
         .then(() =>
           getPostLike(postId).then((data) => {
