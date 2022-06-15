@@ -49,11 +49,19 @@
 }
 .newpost__body-hashtag {
   margin: 0px 0px 15px 5px !important;
+  width: max-content;
+  border: none !important;
+  padding: 2px !important;
   color: #0a66c2 !important;
   font-size: 16px !important;
+  font-family: inherit !important;
+  text-transform: none !important;
   font-weight: 700 !important;
-  cursor: pointer;
-  transition: all 0.3s ease !important;
+  cursor: pointer;  
+  transition: opacity 0.3s 0.3s ease !important;
+}
+.newpost__body-hashtag:hover {
+  background-color: #dfefff !important;
 }
 
 /*footer*/
@@ -105,14 +113,13 @@
   color: white !important;
 }
 
-.newpost__footer-postbtn-disable{
-  background-color: lightgray !important;  
+.newpost__footer-postbtn-disable {
+  background-color: lightgray !important;
 }
 
-.newpost__footer-postbtn-disable:hover{
+.newpost__footer-postbtn-disable:hover {
   cursor: not-allowed !important;
   /* pointer-events: none !important; */
-
 }
 .newpost__footer-postbtn:hover {
   background-color: #004182 !important;

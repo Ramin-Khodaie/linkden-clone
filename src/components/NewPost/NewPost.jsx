@@ -7,7 +7,7 @@ import CelebrationIcon from "@mui/icons-material/Celebration";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import PollIcon from "@mui/icons-material/Poll";
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import CustomIconButton from "../CustomIconButton/CustomIconButton";
 
 import "./NewPost.css";
@@ -17,16 +17,25 @@ const NewPost = forwardRef(({ user, onChangeComponent }, ref) => {
     body: "",
   };
   const [state, setState] = useState(newPost);
+  const [showHashtag, setShowHashtag] = useState(false);
   const showAddtoPost = () => {
-    onChangeComponent();
+    onChangeComponent("AddtoNewPost");
   };
 
+  const showWhoCanComment = () => {
+    onChangeComponent("WhocanComment");
+  };
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
 
     setState({ ...state, [name]: value });
   };
-  console.log(666, state);
+  useEffect(() => {
+    setTimeout(() => {
+      setShowHashtag(true);
+    }, 1000);
+  }, []);
+
   return (
     <div className="newpost" ref={ref}>
       <div className="newpost__header">
@@ -46,9 +55,11 @@ const NewPost = forwardRef(({ user, onChangeComponent }, ref) => {
           value={state.body}
           onChange={handleChangeInput}
         />
-        <Typography variant="body1" className="newpost__body-hashtag">
-          Add hahstag
-        </Typography>
+        {showHashtag && (
+          <Button variant="outlined" className="newpost__body-hashtag">
+            Add hahstag
+          </Button>
+        )}
       </div>
       <div className="newpost__footer">
         <div className="newpost__footer-icons">
@@ -95,6 +106,7 @@ const NewPost = forwardRef(({ user, onChangeComponent }, ref) => {
               <CommentOutlinedIcon size="small" style={{ padding: "3px" }} />
             }
             className="newpost__footer-anybtn"
+            onClick={showWhoCanComment}
           >
             Anyone
           </Button>

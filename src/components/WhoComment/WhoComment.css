@@ -1,0 +1,84 @@
+.WhoComment{
+    display: flex;
+    flex-direction: column;
+    }
+    
+    .WhoComment__header{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    height: 50px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    }
+    
+    .WhoComment__body{
+        display: flex;
+        flex-direction: column;
+        
+    }
+    
+    .WhoComment__body-list{
+        display: flex;        
+        flex-direction: column;
+        width: 100%;                        
+    }
+    .WhoComment__body-list > p{
+        margin-left: 15px;
+    }
+    .WhoComment__body-list:hover{
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.08);
+    }
+    .WhoComment__footer{
+        height: 40px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        border-top: 1px solid rgba(0, 0, 0, 0.09);   
+    }
+    
+    .WhoComment__footer-btn{
+        margin-top: 10px !important;
+        margin-right: 5px !important;
+        color: white;
+        height: 30px !important;
+        width: 15px !important;
+        border-radius: 15px !important;    
+        font-weight: 600 !important;
+        text-transform: capitalize !important;
+        font-family: inherit !important;
+    }
+    
+    .WhoComment__footer-btn:hover{
+        background-color: rgba(112, 181, 249, 0.2) !important;
+        border: 2px solid #0a66c2 !important;
+    }
+
+    .WhoComment__footer-savebtn {
+        margin-top: 10px !important;
+        margin-right: 5px !important;
+        color: white;
+        margin-left: 10px !important;
+        height: 30px !important;
+        width: 15px !important;
+        border-radius: 15px !important;    
+        text-transform: capitalize !important;
+        font-weight: 600 !important;
+        font-family: inherit !important;
+      }
+
+.WhoComment__footer-savebtn-disable{
+    background-color: lightgray !important;  
+  }
+  
+  .WhoComment__footer-savebtn-disable:hover{
+    cursor: not-allowed !important;
+    /* pointer-events: none !important; */
+  
+  }
+  .WhoComment__footer-savebtn:hover {
+    background-color: #004182 !important;
+  }

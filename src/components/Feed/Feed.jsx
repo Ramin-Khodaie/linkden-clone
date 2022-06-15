@@ -10,13 +10,14 @@ import InputOption from "../InputOption/InputOption";
 import Post from "../Post/Post";
 import { readPosts, writePost } from "../../services/post/post";
 import { useSelector } from "react-redux";
-import { serverTimestamp } from "firebase/firestore/lite";
+
 import FlipMove from "react-flip-move";
 import "./Feed.css";
 import { Skeleton } from "@mui/material";
 import Modal from "../Modal/Modal";
 import NewPost from "../NewPost/NewPost";
 import AdditionalsToPost from "../AdditionalsToPost/AdditionalsToPost.jsx";
+import WhoComment from "../WhoComment/WhoComment";
 
 const Feed = () => {
   const [posts, setPosts] = useState(undefined);
@@ -63,14 +64,29 @@ const Feed = () => {
       <NewPost user={user} onChangeComponent={handleChangeComponent} />
     );
   };
-  const handleChangeComponent = () => {
+  const handleChangeComponent = (component) => {
     setShowModal(true);
-    setComponent(
-      <AdditionalsToPost
-        backToNewPost={handleBack}
-        closeModal={handleCloseModal}
-      />
-    );
+    console.log(4433, component)
+    switch (component) {
+      case "AddtoNewPost":
+        setComponent(
+          <AdditionalsToPost
+            backToNewPost={handleBack}
+            closeModal={handleCloseModal}
+          />
+        );
+        break;
+      case "WhocanComment":
+        setComponent(
+          <WhoComment
+            backToNewPost={handleBack}
+            closeModal={handleCloseModal}
+          />
+        );
+        break;
+      default:
+        break;
+    }
   };
 
   const handleCloseModal = () => {
