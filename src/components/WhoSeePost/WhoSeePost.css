@@ -1,0 +1,72 @@
+.WhoSee{
+    display: flex;
+    flex-direction: column;
+}
+
+.WhoSee__header{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    height: 50px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+ .WhoSee__body{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.WhoSee__footer{
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    border-top: 1px solid rgba(0, 0, 0, 0.09);   
+}
+
+.WhoSee__footer-btn{
+    margin-top: 10px !important;
+    margin-right: 5px !important;
+    color: 0a66c2 !important;
+    height: 30px !important;
+    width: 15px !important;
+    border-radius: 15px !important;    
+    font-weight: 600 !important;
+    text-transform: capitalize !important;
+    font-family: inherit !important;
+}
+
+.WhoSee__footer-btn:hover{
+    background-color: rgba(112, 181, 249, 0.2) !important;
+    border: 2px solid #0a66c2 !important;
+}
+
+.WhoSee__footer-savebtn {
+    margin-top: 10px !important;
+    margin-right: 5px !important;
+    color: white;
+    margin-left: 10px !important;
+    height: 30px !important;
+    width: 15px !important;
+    border-radius: 15px !important;    
+    text-transform: capitalize !important;
+    font-weight: 600 !important;
+    font-family: inherit !important;
+  }
+
+.WhoSee__footer-savebtn-disable{
+background-color: lightgray !important;  
+}
+
+.WhoSee__footer-savebtn-disable:hover{
+cursor: not-allowed !important;
+/* pointer-events: none !important; */
+
+}
+.WhoSee__footer-savebtn:hover {
+background-color: #004182 !important;
+}

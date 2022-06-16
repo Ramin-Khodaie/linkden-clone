@@ -8,7 +8,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import InputOption from "../InputOption/InputOption";
 import Post from "../Post/Post";
-import { readPosts, writePost } from "../../services/post/post";
+import { readPosts } from "../../services/post/post";
 import { useSelector } from "react-redux";
 
 import FlipMove from "react-flip-move";
@@ -18,6 +18,7 @@ import Modal from "../Modal/Modal";
 import NewPost from "../NewPost/NewPost";
 import AdditionalsToPost from "../AdditionalsToPost/AdditionalsToPost.jsx";
 import WhoComment from "../WhoComment/WhoComment";
+import WhoSeePost from "../WhoSeePost/WhoSeePost";
 
 const Feed = () => {
   const [posts, setPosts] = useState(undefined);
@@ -66,7 +67,7 @@ const Feed = () => {
   };
   const handleChangeComponent = (component) => {
     setShowModal(true);
-    console.log(4433, component)
+    console.log(4433, component);
     switch (component) {
       case "AddtoNewPost":
         setComponent(
@@ -76,11 +77,19 @@ const Feed = () => {
           />
         );
         break;
-      case "WhocanComment":
+      case "WhoCanComment":
         setComponent(
           <WhoComment
             backToNewPost={handleBack}
             closeModal={handleCloseModal}
+          />
+        );
+        break;
+      case "WhoCanSee":
+        setComponent(
+          <WhoSeePost
+            backToNewPost={handleBack}
+            closeModel={handleCloseModal}
           />
         );
         break;
@@ -94,6 +103,7 @@ const Feed = () => {
   };
   const CreateNewPost = (e) => {
     setShowModal(true);
+    console.log(5544, "here");
     setComponent(
       <NewPost user={user} onChangeComponent={handleChangeComponent} />
     );

@@ -21,6 +21,11 @@
   font-size: 20px;
   font-weight: 500;
 }
+.newpost__creatorinfo-displayname > p{
+  margin-left: 5px;
+  font-size: 16px ;
+  font-weight: 600;
+}
 .newpost__avatar {
   margin-right: 10px;
 }
@@ -57,7 +62,7 @@
   font-family: inherit !important;
   text-transform: none !important;
   font-weight: 700 !important;
-  cursor: pointer;  
+  cursor: pointer;
   transition: opacity 0.3s 0.3s ease !important;
 }
 .newpost__body-hashtag:hover {
@@ -123,4 +128,21 @@
 }
 .newpost__footer-postbtn:hover {
   background-color: #004182 !important;
+}
+
+.WhoSee-btn {
+  width: 100% !important;
+  height: 50% !important;
+  margin-top: 5px !important;
+  color: rgba(0, 0, 0, 0.6) !important;
+  font-size: 14px !important;
+  font-family: inherit !important;
+  font-weight: 800 !important;
+  text-transform: capitalize !important;
+  border: 1px solid lightgray !important;
+  border-radius: 15px !important;
+}
+.WhoSee-btn:hover{
+  background-color: rgba(0, 0, 0, 0.08) !important;
+  border: 2px solid gray !important;
 }

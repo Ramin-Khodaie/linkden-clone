@@ -7,6 +7,8 @@ import CelebrationIcon from "@mui/icons-material/Celebration";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import PollIcon from "@mui/icons-material/Poll";
+import PublicIcon from "@mui/icons-material/Public";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { forwardRef, useEffect, useState } from "react";
 import CustomIconButton from "../CustomIconButton/CustomIconButton";
 
@@ -15,15 +17,20 @@ import "./NewPost.css";
 const NewPost = forwardRef(({ user, onChangeComponent }, ref) => {
   const newPost = {
     body: "",
+    whoSee: "anyone",
+    hashtag: [],
+    photo: [],
+    video: "",
+    doc: "",
+    celebrate: { title: "", photo: "" },
   };
+  console.log(5544, " alsoo here");
   const [state, setState] = useState(newPost);
   const [showHashtag, setShowHashtag] = useState(false);
-  const showAddtoPost = () => {
-    onChangeComponent("AddtoNewPost");
-  };
 
-  const showWhoCanComment = () => {
-    onChangeComponent("WhocanComment");
+  const renderComponent = (componenName) => {
+    console.log(5544, componenName);
+    onChangeComponent(componenName);
   };
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
@@ -44,7 +51,19 @@ const NewPost = forwardRef(({ user, onChangeComponent }, ref) => {
           <Avatar src={user.photoUrl} className="newpost__avatar">
             {user.displayName[0]}
           </Avatar>
-          <p>{user.displayName}</p>
+          <div className="newpost__creatorinfo-displayname">
+            <p>{user.displayName}</p>
+            <Button
+              disableRipple
+              size="small"
+              className="WhoSee-btn"
+              onClick={() => renderComponent("WhoCanSee")}
+              startIcon={<PublicIcon />}
+              endIcon={<ArrowDropDownIcon />}
+            >
+              {state.whoSee}
+            </Button>
+          </div>
         </div>
       </div>
       <div className="newpost__body">
@@ -97,7 +116,7 @@ const NewPost = forwardRef(({ user, onChangeComponent }, ref) => {
             Icon={MoreHorizIcon}
             size="small"
             tooltip="Add to your post"
-            handleClick={showAddtoPost}
+            handleClick={() => renderComponent("AddtoNewPost")}
           />
         </div>
         <div className="newpost__footer-btns">
@@ -106,7 +125,7 @@ const NewPost = forwardRef(({ user, onChangeComponent }, ref) => {
               <CommentOutlinedIcon size="small" style={{ padding: "3px" }} />
             }
             className="newpost__footer-anybtn"
-            onClick={showWhoCanComment}
+            onClick={() => renderComponent("WhoCanComment")}
           >
             Anyone
           </Button>
