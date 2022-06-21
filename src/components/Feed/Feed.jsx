@@ -21,17 +21,30 @@ import WhoComment from "../WhoComment/WhoComment";
 import WhoSeePost from "../WhoSeePost/WhoSeePost";
 
 const Feed = () => {
+  const newPost = {
+    body: "",
+    whoSee: "anyone",
+    whoComment:"anyone",
+    hashtag: [],
+    photo: [],
+    video: "",
+    doc: "",
+    celebrate: { title: "", photo: "" },
+  };
+  const [state, setState] = useState(newPost);
   const [posts, setPosts] = useState(undefined);
+  
   const [component, setComponent] = useState(undefined);
-  const [message, setMessage] = useState("");
+
   const [showModal, setShowModal] = useState(false);
 
   const inputRef = useRef();
 
   const { user } = useSelector((state) => state.user);
-  const handleChangeInput = (e) => {
-    setMessage(e.target.value);
+  const handleChangeInput = (p) => {
+    setState(p);
   };
+ 
   useEffect(() => {
     readPosts().then((snapshot) =>
       setPosts(
@@ -43,31 +56,23 @@ const Feed = () => {
         })
       )
     );
-  }, [message]);
+    
+  }, [state.body === ""]);
 
-  // const handleSendPost = (e) => {
-  //   e.preventDefault();
-  //   const newPost = {
-  //     name: user.displayName,
-  //     description: "front-end devaloper",
-  //     message: message,
-  //     photoUrl: user.photoUrl,
-  //     likes: [],
-  //     timestamp: serverTimestamp(),
-  //   };
-  //   writePost(newPost);
-  //   const emptyInput = "";
-  //   setMessage(emptyInput);
-  // };
-
+ 
   const handleBack = () => {
     setComponent(
-      <NewPost user={user} onChangeComponent={handleChangeComponent} />
+      <NewPost
+        newpost={state}
+        user={user}
+        onChangeComponent={handleChangeComponent}
+        onChange={handleChangeInput}
+      />
     );
   };
   const handleChangeComponent = (component) => {
     setShowModal(true);
-    console.log(4433, component);
+
     switch (component) {
       case "AddtoNewPost":
         setComponent(
@@ -82,6 +87,8 @@ const Feed = () => {
           <WhoComment
             backToNewPost={handleBack}
             closeModal={handleCloseModal}
+            newpost={state}
+            onChange={handleChangeInput}
           />
         );
         break;
@@ -90,6 +97,8 @@ const Feed = () => {
           <WhoSeePost
             backToNewPost={handleBack}
             closeModel={handleCloseModal}
+            newpost={state}
+            onChange={handleChangeInput}
           />
         );
         break;
@@ -103,12 +112,29 @@ const Feed = () => {
   };
   const CreateNewPost = (e) => {
     setShowModal(true);
-    console.log(5544, "here");
     setComponent(
-      <NewPost user={user} onChangeComponent={handleChangeComponent} />
+      <NewPost
+        newpost={state}
+        user={user}
+        onChangeComponent={handleChangeComponent}
+        closeModal={handleCloseModal}
+        onChange={handleChangeInput}
+        
+      />
     );
   };
 
+  useEffect(() => {
+    setComponent(
+      <NewPost
+        newpost={state}
+        user={user}
+        onChangeComponent={handleChangeComponent}
+        closeModal={handleCloseModal}
+        onChange={handleChangeInput}
+      />
+    );
+  }, [state]);
   return (
     <div className="feed">
       {/* input form container */}
@@ -120,8 +146,6 @@ const Feed = () => {
               disabled={true}
               type="text"
               placeholder="start a post"
-              value={message}
-              onChange={handleChangeInput}
               ref={inputRef}
             />
             <button>send</button>
@@ -132,9 +156,7 @@ const Feed = () => {
             showDrop={showModal}
             closeDrop={() => setShowModal(false)}
             component={component}
-          >
-            {/* <NewPost user={user} /> */}
-          </Modal>
+          ></Modal>
         )}
         <div className="feed__inputOptions">
           <InputOption Icon={ImageRounded} title="Photo" color="#70B5F9" />
@@ -166,15 +188,16 @@ const Feed = () => {
       <FlipMove>
         {posts &&
           posts.map(
-            ({ id, data: { name, description, message, photoUrl, likes } }) => (
+            ({ id, data: {post, name, description, message, photoUrl, likes, timestamp } }) => (
               <Post
                 key={id}
                 name={name}
                 description={description}
                 photoUrl={photoUrl}
-                message={message}
+                message={post.body}
                 postId={id}
                 likes={likes}
+                lifetime={timestamp}
               />
             )
           )}

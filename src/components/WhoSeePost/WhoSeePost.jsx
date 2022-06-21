@@ -13,11 +13,12 @@ import CloseIcon from "@mui/icons-material/Close";
 import PublicIcon from "@mui/icons-material/Public";
 import { useRef } from "react";
 import { useState } from "react";
-import './WhoSeePost.css'
+import "./WhoSeePost.css";
 
-const WhoSeePost = ({ backToNewPost, closeModel }) => {
+const WhoSeePost = ({ backToNewPost, closeModel, newpost, onChange }) => {
   const [selectedValue, setSelectedValue] = useState("anyone");
-  
+  const [state, setState] = useState(newpost.whoSee)
+
   const anyoneRef = useRef(null);
   const anyoneplustwitterRef = useRef(null);
   const connectionsRef = useRef(null);
@@ -29,26 +30,43 @@ const WhoSeePost = ({ backToNewPost, closeModel }) => {
   const handleChange = (e) => {
     setSelectedValue(e.target.value);
   };
-  const handleChangeAnyonRef = () => {
-    if (anyoneRef.current !== null) {
-      anyoneRef.current.click();
-    }
-  };
-  const handleChangeAnyoneTwitterRef = () => {
-    if (anyoneplustwitterRef.current !== null) {
-      anyoneplustwitterRef.current.click();
-    }
-  };
-  const hadleChangeConnections = () =>{
-    if(connectionsRef.current !== null){
-        connectionsRef.current.click()
+
+  const handleSave = (e) =>{
+    if(onChange){
+      onChange({ ...newpost, whoSee: state });
     }
   }
-  const handleChangeGroup = () =>{
-    if(groupRef.current !== null){
-        groupRef.current.click()
+  const handleChangeRef = (ref) => {
+    switch (ref) {
+      case "anyone":
+        if (anyoneRef.current !== null) {
+          anyoneRef.current.click();
+          setState("anyone")
+        }
+        break;
+      case "anyonetwitter":
+        if (anyoneplustwitterRef.current !== null) {
+          anyoneplustwitterRef.current.click();
+          setState("anyoneandtwitter")
+        }
+        break;
+      case "connections":
+        if (connectionsRef.current !== null) {
+          connectionsRef.current.click();
+          setState("connections")
+        }
+        break;
+      case "group":
+        if (groupRef.current !== null) {
+          groupRef.current.click();
+          setState("group")
+        }
+        break;
+      default:
+        break;
     }
-  }
+  };
+
   return (
     <div className="WhoSee">
       <div className="WhoSee__header">
@@ -67,13 +85,16 @@ const WhoSeePost = ({ backToNewPost, closeModel }) => {
                 checked={selectedValue === "anyone"}
                 onChange={handleChange}
                 value="anyone"
-                name="anyone-radio"
+                name="whoSee"
                 size="medium"
                 color="success"
               />
             }
           >
-            <ListItemButton disableRipple onClick={handleChangeAnyonRef}>
+            <ListItemButton
+              disableRipple
+              onClick={() => handleChangeRef("anyone")}
+            >
               <ListItemIcon>
                 <PublicIcon />
               </ListItemIcon>
@@ -94,7 +115,7 @@ const WhoSeePost = ({ backToNewPost, closeModel }) => {
                 checked={selectedValue === "anyonetwitter"}
                 onChange={handleChange}
                 value="anyonetwitter"
-                name="anyonetwitter-radio"
+                name="whoSee"
                 size="medium"
                 color="success"
               />
@@ -102,7 +123,7 @@ const WhoSeePost = ({ backToNewPost, closeModel }) => {
           >
             <ListItemButton
               disableRipple
-              onClick={handleChangeAnyoneTwitterRef}
+              onClick={() => handleChangeRef("anyonetwitter")}
             >
               <ListItemIcon>
                 <PublicIcon />
@@ -124,7 +145,7 @@ const WhoSeePost = ({ backToNewPost, closeModel }) => {
                 checked={selectedValue === "connections"}
                 onChange={handleChange}
                 value="connections"
-                name="connections-radio"
+                name="whoSee"
                 size="medium"
                 color="success"
               />
@@ -132,7 +153,7 @@ const WhoSeePost = ({ backToNewPost, closeModel }) => {
           >
             <ListItemButton
               disableRipple
-              onClick={hadleChangeConnections}
+              onClick={() => handleChangeRef("connections")}
             >
               <ListItemIcon>
                 <PublicIcon />
@@ -154,7 +175,7 @@ const WhoSeePost = ({ backToNewPost, closeModel }) => {
                 checked={selectedValue === "group"}
                 onChange={handleChange}
                 value="group"
-                name="group-radio"
+                name="whoSee"
                 size="medium"
                 color="success"
               />
@@ -162,7 +183,7 @@ const WhoSeePost = ({ backToNewPost, closeModel }) => {
           >
             <ListItemButton
               disableRipple
-              onClick={handleChangeGroup}
+              onClick={() => handleChangeRef("group")}
             >
               <ListItemIcon>
                 <PublicIcon />
@@ -186,13 +207,11 @@ const WhoSeePost = ({ backToNewPost, closeModel }) => {
         </Button>
         <Button
           variant="contained"
-            disabled={selectedValue === "anyone"}
-            className={`WhoSee__footer-savebtn ${
-              selectedValue === "anyone"
-                ? "WhoSee__footer-savebtn-disable"
-                : ""
-            }`}
-          onClick={() => console.log("sfjkldfjskdjf")}
+          disabled={selectedValue === "anyone"}
+          className={`WhoSee__footer-savebtn ${
+            selectedValue === "anyone" ? "WhoSee__footer-savebtn-disable" : ""
+          }`}
+          onClick={handleSave}
         >
           Save
         </Button>

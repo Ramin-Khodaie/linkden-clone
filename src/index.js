@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+import NotifyProvider from './common/notify/NotifyProvider'
 import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import { store } from './app/store';
@@ -15,7 +16,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistore} loading={null}>
-        <App />
+        <NotifyProvider>
+          <App />
+        </NotifyProvider>
       </PersistGate>
     </Provider>
   </React.StrictMode>

@@ -7,6 +7,9 @@
 /*header*/
 .newpost__header {
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between !important;
   padding: 0;
   margin: 0;
   height: 30px;
@@ -14,16 +17,16 @@
 }
 
 .newpost__creatorinfo {
-  margin-top: 20px;
   display: flex;
+  flex: 0.2;
 }
 .newpost__creatorinfo > p {
   font-size: 20px;
   font-weight: 500;
 }
-.newpost__creatorinfo-displayname > p{
+.newpost__creatorinfo-displayname > p {
   margin-left: 5px;
-  font-size: 16px ;
+  font-size: 16px;
   font-weight: 600;
 }
 .newpost__avatar {
@@ -33,24 +36,24 @@
 /*body*/
 .newpost__body {
   flex: 1;
-  margin-top: 15%;
+  margin-top: 3%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.newpost__body > input {
+.newpost__body-textfield {
   width: 100%;
-  border: none;
-  font-size: 16px;
-  font-weight: 600;
-  font-family: inherit;
+  border: none !important;
+  outline: unset !important;
+  height: 100% !important;
 }
-.newpost__body > input:focus-visible {
-  outline: none;
+.newpost__body-input {
+  height: 100%;
+  font-size: 18px !important;
+  font-family: inherit !important;
 }
-.newpost__body > input::placeholder {
-  font-size: 18px;
-  font-weight: 500;
+.newpost__body-input:focus-visible {
+  outline: none !important;
 }
 .newpost__body-hashtag {
   margin: 0px 0px 15px 5px !important;
@@ -63,7 +66,7 @@
   text-transform: none !important;
   font-weight: 700 !important;
   cursor: pointer;
-  transition: opacity 0.3s 0.3s ease !important;
+  transition: opacity .6s  ease !important;
 }
 .newpost__body-hashtag:hover {
   background-color: #dfefff !important;
@@ -142,7 +145,7 @@
   border: 1px solid lightgray !important;
   border-radius: 15px !important;
 }
-.WhoSee-btn:hover{
+.WhoSee-btn:hover {
   background-color: rgba(0, 0, 0, 0.08) !important;
   border: 2px solid gray !important;
 }

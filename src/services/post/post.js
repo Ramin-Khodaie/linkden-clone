@@ -20,19 +20,24 @@ export const readPosts = async () => {
 
 }
 
-export const writePost = ({ name, description, message, timestamp, photoUrl, likes }) => {
-
+export const publishPost = ({ post, name, description, timestamp, photoUrl, likes }) => {
 
     try {
-        addDoc(collection(db, "posts"), {
-            name: name, description: description, message: message, timestamp: timestamp, photoUrl: photoUrl, likes: likes
-        }).then(() => console.log("post added successfuly"))
+        return new Promise((resolve, reject) => {
+            addDoc(collection(db, "posts"), {
+                post: post, name: name, description: description, timestamp: timestamp, photoUrl: photoUrl, likes: likes
+            }).then((data) => {
+                if (data.id) {
+                    resolve(data.id)
+                }
+            })
+        })
     } catch (error) {
         console.log(error)
     }
 }
 
-export const toggleLike =async (postid, userid) => {
+export const toggleLike = async (postid, userid) => {
     try {
         const docRef = doc(db, "posts", postid)
         await runTransaction(db, (transaction) => {
@@ -50,11 +55,11 @@ export const toggleLike =async (postid, userid) => {
 
 export const getPostLike = async (postid) => {
     try {
-        const docRef = doc(db, 'posts', postid)        
+        const docRef = doc(db, 'posts', postid)
         const snapshots = await getDoc(docRef);
         if (snapshots.exists()) {
             return snapshots;
-        }else{
+        } else {
             console.log("no such a doc.")
         }
     } catch (error) {

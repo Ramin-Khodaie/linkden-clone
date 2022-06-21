@@ -19,11 +19,13 @@ import SpeakerNotesOffIcon from "@mui/icons-material/SpeakerNotesOff";
 import "./WhoComment.css";
 import { useRef, useState } from "react";
 
-const WhoComment = ({ backToNewPost, closeModal }) => {
+const WhoComment = ({ backToNewPost, closeModal, newpost, onChange }) => {
   const [selectedValue, setSelectedValue] = useState("anyone");
-  const radio1Ref = useRef(null);
-  const radio2Ref = useRef(null);
-  const radio3Ref = useRef(null);
+  const [state, setState] = useState(newpost.whoComment);
+
+  const anyoneRef = useRef(null);
+  const connectionRef = useRef(null);
+  const nooneRef = useRef(null);
 
   const handleChange = (e) => {
     setSelectedValue(e.target.value);
@@ -31,21 +33,37 @@ const WhoComment = ({ backToNewPost, closeModal }) => {
   const handleCloseModal = () => {
     closeModal();
   };
-  const handleChangeRadio1Ref = () => {
-    if (radio1Ref.current !== null) {
-      radio1Ref.current.click();
+
+  const handleSave = (e) => {
+    if (onChange) {
+      onChange({ ...newpost, whoComment: state });
     }
   };
-  const handleChangeRadio2Ref = () => {
-    if (radio2Ref.current !== null) {
-      radio2Ref.current.click();
+  const handleChangeRef = (ref) => {
+    switch (ref) {
+      case "anyone":
+        if (anyoneRef.current !== null) {
+          anyoneRef.current.click();
+          setState("anyone");
+        }
+        break;
+      case "connection":
+        if (connectionRef.current !== null) {
+          connectionRef.current.click();
+          setState("connections");
+        }
+        break;
+      case "noOne":
+        if (nooneRef.current !== null) {
+          nooneRef.current.click();
+          setState("noOne");
+        }
+        break;
+      default:
+        break;
     }
   };
-  const handleChangeRadio3Ref = () => {
-    if (radio3Ref.current !== null) {
-      radio3Ref.current.click();
-    }
-  };
+
   return (
     <div className="WhoComment">
       <div className="WhoComment__header">
@@ -60,7 +78,7 @@ const WhoComment = ({ backToNewPost, closeModal }) => {
             disablePadding
             secondaryAction={
               <Radio
-                inputRef={radio1Ref}
+                inputRef={anyoneRef}
                 checked={selectedValue === "anyone"}
                 onChange={handleChange}
                 value="anyone"
@@ -70,7 +88,10 @@ const WhoComment = ({ backToNewPost, closeModal }) => {
               />
             }
           >
-            <ListItemButton disableRipple onClick={handleChangeRadio1Ref}>
+            <ListItemButton
+              disableRipple
+              onClick={() => handleChangeRef("anyone")}
+            >
               <ListItemIcon>
                 <PublicIcon />
               </ListItemIcon>
@@ -87,7 +108,7 @@ const WhoComment = ({ backToNewPost, closeModal }) => {
             disablePadding
             secondaryAction={
               <Radio
-                inputRef={radio2Ref}
+                inputRef={connectionRef}
                 checked={selectedValue === "conections_only"}
                 onChange={handleChange}
                 value="conections_only"
@@ -97,7 +118,10 @@ const WhoComment = ({ backToNewPost, closeModal }) => {
               />
             }
           >
-            <ListItemButton disableRipple onClick={handleChangeRadio2Ref}>
+            <ListItemButton
+              disableRipple
+              onClick={() => handleChangeRef("connection")}
+            >
               <ListItemIcon>
                 <GroupIcon />
               </ListItemIcon>
@@ -114,7 +138,7 @@ const WhoComment = ({ backToNewPost, closeModal }) => {
             disablePadding
             secondaryAction={
               <Radio
-                inputRef={radio3Ref}
+                inputRef={nooneRef}
                 checked={selectedValue === "no_one"}
                 onChange={handleChange}
                 value="no_one"
@@ -124,7 +148,10 @@ const WhoComment = ({ backToNewPost, closeModal }) => {
               />
             }
           >
-            <ListItemButton disableRipple onClick={handleChangeRadio3Ref}>
+            <ListItemButton
+              disableRipple
+              onClick={() => handleChangeRef("noOne")}
+            >
               <ListItemIcon>
                 <SpeakerNotesOffIcon />
               </ListItemIcon>
@@ -153,7 +180,7 @@ const WhoComment = ({ backToNewPost, closeModal }) => {
               ? "WhoComment__footer-savebtn-disable"
               : ""
           }`}
-          onClick={() => console.log("sfjkldfjskdjf")}
+          onClick={handleSave}
         >
           Save
         </Button>

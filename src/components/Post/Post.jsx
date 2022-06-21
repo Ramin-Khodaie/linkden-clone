@@ -7,21 +7,22 @@ import {
 } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 import InputOption from "../InputOption/InputOption";
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { getPostLike, toggleLike } from "../../services/post/post";
 import { useSelector } from "react-redux";
 
 import "./Post.css";
+import { calculatePostlife } from "../../utils/calculatePostlife";
 
 const Post = forwardRef(
-  ({ name, description, message, photoUrl, postId, likes }, ref) => {
+  ({ name, description, message, photoUrl, postId, likes, lifetime }, ref) => {
     const { user } = useSelector((state) => state.user);
 
     const [likeNumbers, setLikeNumbers] = useState(likes.length);
-    const [togglelikeIcon, setTooglelikeIcon] = useState(false);
+    const [togglelikeIcon, setTogglelikeIcon] = useState(false);
 
     const handleClickLike = (e) => {
-      setTooglelikeIcon(!togglelikeIcon);
+      setTogglelikeIcon(!togglelikeIcon);
       //here we update likes array  inside of post object depends on user's id.
       toggleLike(postId, user.uid)
         .then(() =>
@@ -32,6 +33,17 @@ const Post = forwardRef(
         )
         .catch((error) => console.log(error));
     };
+
+    useEffect(() => {
+      if (user) {
+        if (likes.includes(user.uid)) {
+          setTogglelikeIcon(true);
+        }
+      }
+      // const postliftime = calculatePostlife(lifetime);
+
+      // console.log(postliftime);
+    }, []);
     return (
       <div className="post" ref={ref}>
         <div className="post__header">
@@ -39,6 +51,7 @@ const Post = forwardRef(
           <div className="post__info">
             <h2>{name}</h2>
             <p>{description}</p>
+            {/* <p>{postliftime}</p> */}
           </div>
         </div>
         <div className="post__body">
