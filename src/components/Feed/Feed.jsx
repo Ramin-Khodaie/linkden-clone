@@ -46,8 +46,7 @@ const Feed = () => {
     setState({...state, [field]:e.target.value})
   };
  
-  useEffect(() => {
-    console.log("this is feed")
+  useEffect(() => {    
     readPosts().then((snapshot) =>
       setPosts(
         snapshot.docs.map((doc) => {

@@ -40,7 +40,7 @@ const NewPost = ({
   const handleChange = (e) => {
     console.log(e)
     if (onChange) {
-      onChange();
+      onChange({...newpost, [e.target.name]: e.target.value});
     }
   };
 
@@ -59,7 +59,7 @@ const NewPost = ({
     publishPost(newPost).then((data) => {
       if (data) {
         notify("post added successfuly", "success");        
-        onChange({ ...newpost, body: "" });
+        onChange({...newpost, body: ""});
       }
     });
     closeModal();
@@ -102,7 +102,7 @@ const NewPost = ({
           className="newpost__body-textfield"
           name="body"
           value={newpost.body}
-          onChange={onChange("body")}
+          onChange={handleChange}
         ></TextField>
         <Button
           variant="outlined"
