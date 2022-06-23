@@ -59,7 +59,7 @@ const Feed = () => {
       )
     );
     
-  }, []);
+  }, [state.body === ""]);
 
  
   const handleBack = () => {
