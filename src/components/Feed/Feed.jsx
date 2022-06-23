@@ -41,11 +41,13 @@ const Feed = () => {
   const inputRef = useRef();
 
   const { user } = useSelector((state) => state.user);
-  const handleChangeInput = (p) => {
-    setState(p);
+  const handleChangeInput = (field) => (e) => {
+    console.log(44, e.target.value)
+    setState({...state, [field]:e.target.value})
   };
  
   useEffect(() => {
+    console.log("this is feed")
     readPosts().then((snapshot) =>
       setPosts(
         snapshot.docs.map((doc) => {
@@ -57,7 +59,7 @@ const Feed = () => {
       )
     );
     
-  }, [state.body === ""]);
+  }, []);
 
  
   const handleBack = () => {

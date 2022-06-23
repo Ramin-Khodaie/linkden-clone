@@ -12,7 +12,6 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { forwardRef, useEffect, useState } from "react";
 import CustomIconButton from "../CustomIconButton/CustomIconButton";
 import CloseIcon from "@mui/icons-material/Close";
-
 import "./NewPost.css";
 import { publishPost } from "../../services/post/post";
 import { serverTimestamp } from "firebase/firestore/lite";
@@ -32,14 +31,17 @@ const NewPost = ({
   };
 
   useEffect(() => {
+    console.log(22, "useeffect");
     setTimeout(() => {
       setShowHashtag(true);
     }, 1000);
   }, []);
 
   const handleChange = (e) => {
-    console.log(e.target.value);
-    onChange({ ...newpost, [e.target.name]: e.target.value });
+    console.log(e)
+    if (onChange) {
+      onChange();
+    }
   };
 
   const handleChangeHashtag = (e) => {
@@ -56,8 +58,7 @@ const NewPost = ({
     };
     publishPost(newPost).then((data) => {
       if (data) {
-        notify("post added successfuly");
-        console.log("post added successfuly");
+        notify("post added successfuly", "success");        
         onChange({ ...newpost, body: "" });
       }
     });
@@ -101,9 +102,8 @@ const NewPost = ({
           className="newpost__body-textfield"
           name="body"
           value={newpost.body}
-          onChange={handleChange}
+          onChange={onChange("body")}
         ></TextField>
-
         <Button
           variant="outlined"
           className="newpost__body-hashtag"

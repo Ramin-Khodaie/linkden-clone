@@ -6,7 +6,7 @@ const useNotify = () => {
 
   const notify = (message, variant) => {
     console.log(2211, message);
-    context.notify(message);
+    context.notify(message, variant);
   };
   return notify;
 };
