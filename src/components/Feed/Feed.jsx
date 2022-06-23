@@ -24,7 +24,7 @@ const Feed = () => {
   const newPost = {
     body: "",
     whoSee: "anyone",
-    whoComment:"anyone",
+    whoComment: "anyone",
     hashtag: [],
     photo: [],
     video: "",
@@ -33,7 +33,7 @@ const Feed = () => {
   };
   const [state, setState] = useState(newPost);
   const [posts, setPosts] = useState(undefined);
-  
+
   const [component, setComponent] = useState(undefined);
 
   const [showModal, setShowModal] = useState(false);
@@ -41,12 +41,11 @@ const Feed = () => {
   const inputRef = useRef();
 
   const { user } = useSelector((state) => state.user);
-  const handleChangeInput = (field) => (e) => {
-    console.log(44, e.target.value)
-    setState({...state, [field]:e.target.value})
+  const handleChangeInput = (p) => {
+    setState(p);
   };
- 
-  useEffect(() => {    
+
+  useEffect(() => {
     readPosts().then((snapshot) =>
       setPosts(
         snapshot.docs.map((doc) => {
@@ -57,10 +56,8 @@ const Feed = () => {
         })
       )
     );
-    
   }, [state.body === ""]);
 
- 
   const handleBack = () => {
     setComponent(
       <NewPost
@@ -120,7 +117,6 @@ const Feed = () => {
         onChangeComponent={handleChangeComponent}
         closeModal={handleCloseModal}
         onChange={handleChangeInput}
-        
       />
     );
   };
@@ -189,7 +185,18 @@ const Feed = () => {
       <FlipMove>
         {posts &&
           posts.map(
-            ({ id, data: {post, name, description, message, photoUrl, likes, timestamp } }) => (
+            ({
+              id,
+              data: {
+                post,
+                name,
+                description,
+                message,
+                photoUrl,
+                likes,
+                timestamp,
+              },
+            }) => (
               <Post
                 key={id}
                 name={name}
