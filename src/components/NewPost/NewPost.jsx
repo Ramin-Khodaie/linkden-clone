@@ -31,16 +31,14 @@ const NewPost = ({
   };
 
   useEffect(() => {
-    console.log(22, "useeffect");
     setTimeout(() => {
       setShowHashtag(true);
     }, 1000);
   }, []);
 
   const handleChange = (e) => {
-    console.log(e)
     if (onChange) {
-      onChange({...newpost, [e.target.name]: e.target.value});
+      onChange({ ...newpost, [e.target.name]: e.target.value });
     }
   };
 
@@ -58,8 +56,8 @@ const NewPost = ({
     };
     publishPost(newPost).then((data) => {
       if (data) {
-        notify("post added successfuly", "success");        
-        onChange({...newpost, body: ""});
+        notify("post added successfuly", "success");
+        onChange({ ...newpost, body: "" });
       }
     });
     closeModal();

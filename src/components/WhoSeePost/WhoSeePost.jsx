@@ -11,13 +11,22 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import PublicIcon from "@mui/icons-material/Public";
-import { useRef } from "react";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import React, { useRef } from "react";
 import { useState } from "react";
 import "./WhoSeePost.css";
 
-const WhoSeePost = ({ backToNewPost, closeModel, newpost, onChange }) => {
-  const [selectedValue, setSelectedValue] = useState("anyone");
-  const [state, setState] = useState(newpost.whoSee)
+const WhoSeePost = ({
+  backToNewPost,
+  closeModel,
+  newpost,
+  onChange,
+  componentChange,
+}) => {
+  const [selectedValue, setSelectedValue] = useState(newpost.whoSee);
+  const [state, setState] = useState(
+    newpost.whoSee ? newpost.whoSee : "anyone"
+  );
 
   const anyoneRef = useRef(null);
   const anyoneplustwitterRef = useRef(null);
@@ -31,35 +40,38 @@ const WhoSeePost = ({ backToNewPost, closeModel, newpost, onChange }) => {
     setSelectedValue(e.target.value);
   };
 
-  const handleSave = (e) =>{
-    if(onChange){
+  const handleSave = (e) => {
+    if (onChange) {
       onChange({ ...newpost, whoSee: state });
     }
-  }
+  };
+
+  console.log(newpost);
+
   const handleChangeRef = (ref) => {
     switch (ref) {
       case "anyone":
         if (anyoneRef.current !== null) {
           anyoneRef.current.click();
-          setState("anyone")
+          setState("anyone");
         }
         break;
       case "anyonetwitter":
         if (anyoneplustwitterRef.current !== null) {
           anyoneplustwitterRef.current.click();
-          setState("anyoneandtwitter")
+          setState("anyonetwitter");
         }
         break;
       case "connections":
         if (connectionsRef.current !== null) {
           connectionsRef.current.click();
-          setState("connections")
+          setState("connections");
         }
         break;
       case "group":
         if (groupRef.current !== null) {
           groupRef.current.click();
-          setState("group")
+          setState("group");
         }
         break;
       default:
@@ -172,7 +184,10 @@ const WhoSeePost = ({ backToNewPost, closeModel, newpost, onChange }) => {
             secondaryAction={
               <Radio
                 inputRef={groupRef}
-                checked={selectedValue === "group"}
+                checked={
+                  newpost.whoSee === "javascriptDevelopers" ||
+                  newpost.whoSee === "frontendDevelopers"
+                }
                 onChange={handleChange}
                 value="group"
                 name="whoSee"
@@ -183,16 +198,18 @@ const WhoSeePost = ({ backToNewPost, closeModel, newpost, onChange }) => {
           >
             <ListItemButton
               disableRipple
-              onClick={() => handleChangeRef("group")}
+              onClick={() => componentChange("WhoCanSee-group")}
             >
               <ListItemIcon>
                 <PublicIcon />
               </ListItemIcon>
               <ListItemText
-                primary="Group members"
+                style={{ maxWidth: "max-content" }}
+                primary={`group members `}
                 font
                 secondary="Select a group you're in"
               />
+              <KeyboardArrowRightIcon />
             </ListItemButton>
           </ListItem>
         </List>
@@ -207,9 +224,11 @@ const WhoSeePost = ({ backToNewPost, closeModel, newpost, onChange }) => {
         </Button>
         <Button
           variant="contained"
-          disabled={selectedValue === "anyone"}
+          disabled={selectedValue === newpost.whoSee}
           className={`WhoSee__footer-savebtn ${
-            selectedValue === "anyone" ? "WhoSee__footer-savebtn-disable" : ""
+            selectedValue === newpost.whoSee
+              ? "WhoSee__footer-savebtn-disable"
+              : ""
           }`}
           onClick={handleSave}
         >

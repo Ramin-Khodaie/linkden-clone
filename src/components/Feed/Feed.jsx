@@ -9,8 +9,6 @@ import { useEffect, useRef, useState } from "react";
 import InputOption from "../InputOption/InputOption";
 import Post from "../Post/Post";
 import { readPosts } from "../../services/post/post";
-import { useSelector } from "react-redux";
-
 import FlipMove from "react-flip-move";
 import "./Feed.css";
 import { Skeleton } from "@mui/material";
@@ -19,6 +17,9 @@ import NewPost from "../NewPost/NewPost";
 import AdditionalsToPost from "../AdditionalsToPost/AdditionalsToPost.jsx";
 import WhoComment from "../WhoComment/WhoComment";
 import WhoSeePost from "../WhoSeePost/WhoSeePost";
+import WhoCanSeeGroup from "../WhoSeePost/WhoCanSeeGroup";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleModal } from "../../features/modal/modalSlice";
 
 const Feed = () => {
   const newPost = {
@@ -36,7 +37,8 @@ const Feed = () => {
 
   const [component, setComponent] = useState(undefined);
 
-  const [showModal, setShowModal] = useState(false);
+  const dispatch = useDispatch()
+  const {showModal} = useSelector(state=>state.modal)
 
   const inputRef = useRef();
 
@@ -68,8 +70,9 @@ const Feed = () => {
       />
     );
   };
+  
   const handleChangeComponent = (component) => {
-    setShowModal(true);
+    dispatch(toggleModal(true));
 
     switch (component) {
       case "AddtoNewPost":
@@ -97,19 +100,31 @@ const Feed = () => {
             closeModel={handleCloseModal}
             newpost={state}
             onChange={handleChangeInput}
+            componentChange={handleChangeComponent}
           />
         );
         break;
+        case "WhoCanSee-group":
+          setComponent(
+            <WhoCanSeeGroup
+            // backToWhoSee={handleBackGroup}
+              closeModel={handleCloseModal}
+              newpost={state}
+              onChange={handleChangeInput}
+              componentChange={handleChangeComponent}
+            />
+          );
+          break;
       default:
         break;
     }
   };
 
   const handleCloseModal = () => {
-    setShowModal(false);
+    dispatch(toggleModal(false));
   };
   const CreateNewPost = (e) => {
-    setShowModal(true);
+    dispatch(toggleModal(true));
     setComponent(
       <NewPost
         newpost={state}
@@ -151,7 +166,7 @@ const Feed = () => {
         {showModal && (
           <Modal
             showDrop={showModal}
-            closeDrop={() => setShowModal(false)}
+            closeDrop={() =>dispatch(toggleModal())}
             component={component}
           ></Modal>
         )}

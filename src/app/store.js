@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import userReducer from '../features/user/userSlice'
+import modalReducer from '../features/modal/modalSlice'
 import { persistReducer } from 'redux-persist';
 import storage from "redux-persist/lib/storage";
 
@@ -12,7 +13,8 @@ const persistConfig = {
 
 //combine multiple reducers 
 const rootReducer = combineReducers({
-  user: userReducer
+  user: userReducer,
+  modal: modalReducer
 })
 
 
