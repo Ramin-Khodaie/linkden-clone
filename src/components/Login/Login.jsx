@@ -17,9 +17,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const handleLogin = (e) => {
-    e.preventDefault();
-    console.log(e.target
-      )
+    e.preventDefault();    
     signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
       dispatch(
         login({
@@ -54,6 +52,7 @@ const Login = () => {
       .catch((error) => console.log(error));
   };
   return (
+    
     <div className="login">
       <img
         src="https://blogs.va.gov/VAntage/wp-content/uploads/2019/05/1280px-LinkedIn_Logo.svg_.png"

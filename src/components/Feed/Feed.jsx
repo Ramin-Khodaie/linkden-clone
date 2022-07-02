@@ -151,6 +151,9 @@ const Feed = () => {
     <div className="feed">
       {/* input form container */}
       <div className="feed__inputContainer">
+        <div className="feed__inputimage">
+
+          <img src={user.photoUrl} className="feed__img"/>
         <div className="feed__input">
           <CreateRounded />
           <form onClick={CreateNewPost}>
@@ -162,6 +165,7 @@ const Feed = () => {
             />
             <button>send</button>
           </form>
+        </div>
         </div>
         {showModal && (
           <Modal

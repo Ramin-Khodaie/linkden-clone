@@ -91,4 +91,11 @@
     font-size: 13px;
     padding-bottom: 10px;
 }
-
+ 
+@media only screen and (max-width: 600px){
+    .sidebar{
+        position: relative;
+        top: 20px;
+    }
+   }
+   

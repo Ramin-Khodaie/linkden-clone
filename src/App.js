@@ -20,6 +20,7 @@ function App() {
           <Sidebar />
           <Feed />
           <Widget/>
+          
         </div>
       }
     </div>

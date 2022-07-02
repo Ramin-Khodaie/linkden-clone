@@ -37,12 +37,14 @@ const WhoSeePost = ({
     closeModel();
   };
   const handleChange = (e) => {
+    
     setSelectedValue(e.target.value);
+    
   };
 
   const handleSave = (e) => {
     if (onChange) {
-      onChange({ ...newpost, whoSee: state });
+      onChange({ ...newpost, whoSee: selectedValue });
     }
   };
 
@@ -53,25 +55,37 @@ const WhoSeePost = ({
       case "anyone":
         if (anyoneRef.current !== null) {
           anyoneRef.current.click();
-          setState("anyone");
+          // setState("anyone");
+          if (onChange) {
+            onChange({ ...newpost, whoSee: selectedValue });
+          }
         }
         break;
       case "anyonetwitter":
         if (anyoneplustwitterRef.current !== null) {
           anyoneplustwitterRef.current.click();
-          setState("anyonetwitter");
+          // setState("anyonetwitter");
+          // if (onChange) {
+          //   onChange({ ...newpost, whoSee: state });
+          // }
         }
         break;
       case "connections":
         if (connectionsRef.current !== null) {
           connectionsRef.current.click();
-          setState("connections");
+          // setState("connections");
+          // if (onChange) {
+          //   onChange({ ...newpost, whoSee: state });
+          // }
         }
         break;
       case "group":
         if (groupRef.current !== null) {
           groupRef.current.click();
-          setState("group");
+          // setState("group");
+          // if (onChange) {
+          //   onChange({ ...newpost, whoSee: state });
+          // }
         }
         break;
       default:

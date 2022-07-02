@@ -11,6 +11,9 @@
     margin-bottom: 20px;
 }
 
+.feed__img{
+    display: none;
+}
 .feed__input{
     border: 1px solid lightgray;
     color: gray;
@@ -52,3 +55,31 @@
     display: flex;
     justify-content: space-evenly;
 }
+
+@media only screen and (max-width: 600px){
+    
+    .feed{
+        margin: 0;
+    }
+    .feed__inputContainer{
+        margin-top: 40px;
+        width: 100%;
+        
+    }
+    .feed__img{
+        display: block;
+        object-fit: contain;
+        height: 40px;
+        margin-right: 10px;
+        border-radius: 50%;
+    }
+    .feed__inputimage{
+        display: flex;
+        justify-content: space-between;
+    }
+    .feed__input{
+        width: 80%;
+    }
+    
+   }
+   
