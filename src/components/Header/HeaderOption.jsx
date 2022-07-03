@@ -1,23 +1,18 @@
 import { Avatar } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { logout } from "../../features/user/userSlice";
 import "./HeaderOption.css";
 import {useMediaQuery} from '@mui/material'
 
-const HeaderOption = ({ Icon, title, user }) => {
-  const dispatch = useDispatch();
-  const handleLogout = (e) => {
-    dispatch(logout());
-  };
+const HeaderOption = ({ Icon, title, user, handleClick}) => {
+ 
 
   const disableAvatar = useMediaQuery('(max-width:600px)')
   return (
-    <div className="headerOption">
+    <div className="headerOption" onClick={handleClick}>
       {Icon && <Icon className="headerOption__icon" />}
       
       {user &&  (
         <Avatar
-          onClick={handleLogout}
+         
           className="headerOption__icon" 
           style={{display:disableAvatar ? "none" : ""}}   
           src={user?.photoUrl}
