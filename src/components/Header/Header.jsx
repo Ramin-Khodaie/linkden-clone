@@ -6,24 +6,26 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import ChatIcon from "@mui/icons-material/Chat";
 import "./Header.css";
 import HeaderOption from "./HeaderOption";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import MenuIcon from "@mui/icons-material/Menu";
 import React from "react";
 import { IconButton, useMediaQuery } from "@mui/material";
 import ExtraMenu from "../ExtraMenu/ExtraMenu";
 import Dropdown from "../DropDown/Dropdown";
-import { useState } from "react";
+import { toggleDropdown } from "../../features/dropdown/dropdownSlice";
 
 const Header = () => {
   const { user } = useSelector((state) => state.user);
 
   const disableSearch = useMediaQuery("(max-width:600px)");
-  const [showDropdown, setShowDropdown] = useState(false);
-  const toggleDropDown = () => {
-    setShowDropdown(!showDropdown);
-  };
+  const { dropdown } = useSelector((state) => state.dropdown);
 
-  console.log(showDropdown)
+  const dispatch = useDispatch();
+
+  const handleToggledropdown = () => {
+    dispatch(toggleDropdown());
+  };
+  console.log(dropdown);
   return (
     <React.Fragment>
       {user && (
@@ -46,14 +48,14 @@ const Header = () => {
             {user && <HeaderOption user={user} title="Me" />}
           </div>
           <div className="header__bar">
-            <IconButton onClick={toggleDropDown}>
+            <IconButton onClick={() => handleToggledropdown()}>
               <MenuIcon className="header__bar-icon" />
             </IconButton>
-            {showDropdown && (
+            
               <Dropdown>
-                <ExtraMenu email={user.email} photoUrl={user.photoUrl}/>
+                <ExtraMenu email={user.email} photoUrl={user.photoUrl} />
               </Dropdown>
-            )}
+            
           </div>
         </div>
       )}

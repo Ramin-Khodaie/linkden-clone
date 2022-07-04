@@ -170,7 +170,7 @@ const Feed = () => {
         {showModal && (
           <Modal
             showDrop={showModal}
-            closeDrop={() =>dispatch(toggleModal())}
+            closeDrop={() =>dispatch(toggleModal(false))}
             component={component}
           ></Modal>
         )}
@@ -192,8 +192,9 @@ const Feed = () => {
       {/* posts */}
 
       {posts === undefined &&
-        [...Array(10)].map((arr) => (
+        [...Array(10)].map((arr, idx) => (
           <Skeleton
+          key={idx}
             style={{
               backgroundColor: "white",
               height: "100px",

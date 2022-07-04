@@ -1,11 +1,15 @@
 import { Avatar } from "@mui/material";
 import "./HeaderOption.css";
 import {useMediaQuery} from '@mui/material'
+import { useDispatch } from "react-redux";
+import { toggleDropdown } from "../../features/dropdown/dropdownSlice";
+import { logout } from "../../features/user/userSlice";
 
 const HeaderOption = ({ Icon, title, user, handleClick}) => {
  
 
   const disableAvatar = useMediaQuery('(max-width:600px)')
+ 
   return (
     <div className="headerOption" onClick={handleClick}>
       {Icon && <Icon className="headerOption__icon" />}

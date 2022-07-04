@@ -1,7 +1,7 @@
 .sidebar {
   position: sticky;
   top: 80px;
-  flex: 0.2;
+  flex: 0.25;
   border-radius: 10px;
   height: fit-content;
   text-align: center;
@@ -96,6 +96,7 @@
     .sidebar{
         position: relative;
         top: 20px;
+        /* width: fit-content; */
     }
    }
    
