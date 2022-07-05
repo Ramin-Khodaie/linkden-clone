@@ -37,8 +37,8 @@ const Feed = () => {
 
   const [component, setComponent] = useState(undefined);
 
-  const dispatch = useDispatch()
-  const {showModal} = useSelector(state=>state.modal)
+  const dispatch = useDispatch();
+  const { showModal } = useSelector((state) => state.modal);
 
   const inputRef = useRef();
 
@@ -70,7 +70,7 @@ const Feed = () => {
       />
     );
   };
-  
+
   const handleChangeComponent = (component) => {
     dispatch(toggleModal(true));
 
@@ -104,17 +104,17 @@ const Feed = () => {
           />
         );
         break;
-        case "WhoCanSee-group":
-          setComponent(
-            <WhoCanSeeGroup
+      case "WhoCanSee-group":
+        setComponent(
+          <WhoCanSeeGroup
             // backToWhoSee={handleBackGroup}
-              closeModel={handleCloseModal}
-              newpost={state}
-              onChange={handleChangeInput}
-              componentChange={handleChangeComponent}
-            />
-          );
-          break;
+            closeModel={handleCloseModal}
+            newpost={state}
+            onChange={handleChangeInput}
+            componentChange={handleChangeComponent}
+          />
+        );
+        break;
       default:
         break;
     }
@@ -152,25 +152,24 @@ const Feed = () => {
       {/* input form container */}
       <div className="feed__inputContainer">
         <div className="feed__inputimage">
-
-          <img src={user.photoUrl} className="feed__img"/>
-        <div className="feed__input">
-          <CreateRounded />
-          <form onClick={CreateNewPost}>
-            <input
-              disabled={true}
-              type="text"
-              placeholder="start a post"
-              ref={inputRef}
-            />
-            <button>send</button>
-          </form>
-        </div>
+          <img src={user.photoUrl} className="feed__img" />
+          <div className="feed__input">
+            <CreateRounded />
+            <form onClick={CreateNewPost}>
+              <input
+                disabled={true}
+                type="text"
+                placeholder="start a post"
+                ref={inputRef}
+              />
+              <button>send</button>
+            </form>
+          </div>
         </div>
         {showModal && (
           <Modal
             showDrop={showModal}
-            closeDrop={() =>dispatch(toggleModal(false))}
+            closeDrop={() => dispatch(toggleModal(false))}
             component={component}
           ></Modal>
         )}
@@ -194,7 +193,7 @@ const Feed = () => {
       {posts === undefined &&
         [...Array(10)].map((arr, idx) => (
           <Skeleton
-          key={idx}
+            key={idx}
             style={{
               backgroundColor: "white",
               height: "100px",
