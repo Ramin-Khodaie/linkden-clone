@@ -10,9 +10,9 @@ const SideBar = () => {
     "frontend",
     "comunity",
   ];
-  const recentItems = (item) => {
+  const recentItems = (item, index) => {
     return (
-      <div className="sidebar__recentItems">
+      <div className="sidebar__recentItems" key={index}>
         <span className="sidebar__hash">#</span>
         <p>{item}</p>
       </div>
@@ -43,7 +43,7 @@ const SideBar = () => {
       </div>
       <div className="sidebar__bottom">
         Recent
-        {RecentItems.map((recentitem) => recentItems(recentitem))}
+        {RecentItems.map((recentitem, idx) => recentItems(recentitem, idx))}
       </div>
     </div>
   );

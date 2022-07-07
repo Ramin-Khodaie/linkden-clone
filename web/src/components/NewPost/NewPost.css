@@ -86,7 +86,9 @@
   border-right: 1px solid rgba(0, 0, 0, 0.09);
   flex-direction: row;
 }
-
+.newpost__footer-icons-visibale{
+  display: none;
+}
 .newpost__footer-btns {
   display: flex;
   flex-direction: row;
@@ -148,4 +150,16 @@
 .WhoSee-btn:hover {
   background-color: rgba(0, 0, 0, 0.08) !important;
   border: 2px solid gray !important;
+}
+
+@media screen and (max-width: 600px) {
+  .newpost{
+    width: 100%;
+  }
+  .newpost__footer-icons:not(:last-child){
+    display: none;
+  }
+  .newpost__footer-icons-visibale{
+    display: block;
+  }
 }

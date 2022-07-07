@@ -56,3 +56,11 @@ justify-content: space-between;
     background-color: rgba(112, 181, 249, 0.2) !important;
     border: 2px solid #0a66c2 !important;
 }
+
+@media screen and (max-width: 600px) {
+   
+    .addPost__body{
+        display: flex;
+        flex-direction: column;
+    }
+}

@@ -7,30 +7,35 @@
 
 .app__body {
   display: flex;
-  margin-top: 35px;
-  max-width: 1200px;
+  margin-top: 35px;  
   margin-left: 20px;
   margin-right: 20px;
 }
-@media only screen and (max-width: 480px) {
+
+@media only screen and (max-width: 600px) {
   .app__body {
-    max-width: 330px;
+    flex-direction: column;
+   
   }
 }
+
 
 @media only screen and (min-width: 768px) {
   .app__body {
     max-width: 610px;
+    display: row;
   }
 }
 @media only screen and (min-width: 1024px) {
   .app__body {
-    max-width: 870px;
+    max-width: 100%;
   }
 }
 
-@media only screen and (max-width: 850px) {
+
+@media only screen and (min-width: 850px) {
   .app__body {
-    flex-direction: column;
+    max-width: 800;
+    flex-direction: row;
   }
 }

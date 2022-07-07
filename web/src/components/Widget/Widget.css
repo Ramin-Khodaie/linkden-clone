@@ -1,7 +1,7 @@
 .widgets {
   position: sticky;
   top: 80px;
-  flex: 0.2;
+  flex: 0.25;
   background: white;
   border: 1px solid lightgray;
   height: fit-content;

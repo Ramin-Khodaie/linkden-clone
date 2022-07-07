@@ -3,7 +3,7 @@ import './CustomIconButton.css'
 
 const CustomIconButton = ({ Icon, size, tooltip, handleClick }) => {
   return (
-    <div className="iconbutton">
+    <div>
       <Tooltip placement="top-start" title={tooltip}>
         <IconButton size={size} onClick={handleClick}>
           <Icon />

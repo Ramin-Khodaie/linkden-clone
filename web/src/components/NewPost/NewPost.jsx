@@ -117,6 +117,14 @@ const NewPost = ({
         </Button>
       </div>
       <div className="newpost__footer">
+        <div className="newpost__footer-icons-visibale">
+          <CustomIconButton
+            Icon={MoreHorizIcon}
+            size="small"
+            tooltip="Add to your post"
+            handleClick={() => renderComponent("AddtoNewPost")}
+          />
+        </div>
         <div className="newpost__footer-icons">
           <CustomIconButton
             Icon={InsertPhotoIcon}
@@ -163,7 +171,7 @@ const NewPost = ({
             className="newpost__footer-anybtn"
             onClick={() => renderComponent("WhoCanComment")}
           >
-            Anyone
+            {newpost.whoComment ? newpost.whoComment : "anyone"}
           </Button>
           <Button
             disabled={!newpost.body}
