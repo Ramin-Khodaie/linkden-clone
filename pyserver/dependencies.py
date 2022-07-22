@@ -1,5 +1,11 @@
 from fastapi import Header, HTTPException
+import json
 
+
+def load_settings(path="pyserver/settings.json"):
+    with open(path, 'r') as f:
+        data = json.load(f)
+        return data
 
 async def get_token_header(x_token: str = Header()):
     if x_token != "fake-super-secret-token":

@@ -17,3 +17,11 @@ class UserBase(BaseModel):
 
 class UserInDB(UserBase):
     hashed_password: str
+
+
+class UserRegistration(BaseModel):
+    username: str
+    email: str
+    full_name: str 
+    password : str 
+    password_confirm : str

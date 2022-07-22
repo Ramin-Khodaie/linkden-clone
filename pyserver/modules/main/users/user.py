@@ -1,19 +1,13 @@
 
 from datetime import datetime, timedelta
+from bson import ObjectId
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from .models import *
-
-import json
-
-
-def load_settings(path="pyserver/settings.json"):
-    with open(path, 'r') as f:
-        data = json.load(f)
-        return data
-
+from pyserver.dependencies import load_settings
+from pyserver.modules.main.database import mongo_client
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -36,9 +30,9 @@ fake_users_db = {
 class User:
     def __init__(self) -> None:
         data = load_settings()
-        self.__SECRET_KEY =  data["SECRET_KEY"]
-        self.__ALGORITHM = data["ALGORITHM"]
-        self.ACCESS_TOKEN_EXPIRE_MINUTES = data["ACCESS_TOKEN_EXPIRE_MINUTES"]
+        self.__SECRET_KEY =  data["API"]["SECRET_KEY"]
+        self.__ALGORITHM = data["API"]["ALGORITHM"]
+        self.ACCESS_TOKEN_EXPIRE_MINUTES = data["API"]["ACCESS_TOKEN_EXPIRE_MINUTES"]
 
     # to get a string like this run:
     # openssl rand -hex 32
@@ -62,11 +56,14 @@ class User:
             return UserInDB(**user_dict)
 
 
-    def authenticate_user(self , fake_db, username: str, password: str):
-        user = self.get_user(fake_db, username)
-        if not user:
+    def authenticate_user(self , username: str, password: str):
+        db  = mongo_client["accounts"]
+        col = db["users"]
+        user = list(col.find({"username" : username}))
+
+        if len(user) != 1:
             return False
-        if not self.verify_password(password, user.hashed_password):
+        if not self.verify_password(password, user[0]["password"]):
             return False
         return user
 
@@ -106,3 +103,16 @@ class User:
         if current_user.disabled:
             raise HTTPException(status_code=400, detail="Inactive user")
         return current_user
+
+    def register_user(self, user_name , password , full_name , email):
+        db  = mongo_client["accounts"]
+        col = db["users"]
+        idd = str(ObjectId())
+        cu = col.insert_one({
+            "_id" : idd,
+            "username" :user_name,
+            "email" : email,
+            "fullname" : full_name,
+            "password" : password
+        })
+        return cu
