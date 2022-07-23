@@ -1,16 +1,13 @@
-import { useSelector } from 'react-redux'
-import './Dropdown.css'
+import { useSelector } from "react-redux";
+import "./Dropdown.css";
 
-const Dropdown = ({children}) =>{
-    const {dropdown} = useSelector((state)=>state.dropdown)
-    return(
-        <div className={`dropdown ${dropdown ? "visibale":""}`} >
-            {
-                children
-            }
-        </div>
+const Dropdown = ({ children }) => {
+  const { miniDropdown, extraMenu } = useSelector((state) => state.dropdown);
+  return (
+    <div className={`dropdown ${miniDropdown || extraMenu ? "visibale" : ""} ${extraMenu ? "extramenudropdown" : ""}`}>
+      {children}
+    </div>
+  );
+};
 
-    )
-}
-
-export default Dropdown
+export default Dropdown;

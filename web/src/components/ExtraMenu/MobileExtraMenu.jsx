@@ -2,7 +2,7 @@ import { Avatar } from "@mui/material";
 import HeaderOption from "../Header/HeaderOption";
 import LogoutIcon from "@mui/icons-material/Logout";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
-import "./ExtraMenu.css";
+import "./MobileExtraMenu.css";
 import { useDispatch } from "react-redux";
 import { logout } from "../../features/user/userSlice";
 import { toggleDropdown } from "../../features/dropdown/dropdownSlice";

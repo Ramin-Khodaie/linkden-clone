@@ -11,6 +11,17 @@
     border-bottom-right-radius: 10px;
     transition: all 0.2s ease
 }
+
+
+.extramenudropdown{
+    width: 20%;
+    height: 360px;
+    background-color: inherit   ;
+    position: absolute;
+    right: 10%;
+    top: 65px;
+    
+}
 .visibale{
     opacity: 1;
 }

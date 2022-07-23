@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    dropdown:false
+    miniDropdown:false,
+    extraMenu:false
 }
 
 const dropDownSlice = createSlice({
@@ -9,13 +10,19 @@ const dropDownSlice = createSlice({
     initialState:initialState,
     reducers:{
         toggleDropdown:(state)=>{
-            state.dropdown = !state.dropdown ;
+            state.miniDropdown = !state.miniDropdown ;
         },
         closeDropdown:(state)=>{
-            state.dropdown = false;
+            state.miniDropdown = false;
+        },
+        toggleExtraMenuDropdown:(state)=>{
+            state.extraMenu = !state.extraMenu
+        },
+        closeExtraMenu:(state)=>{
+            state.extraMenu = false
         }
     }
 })
 
-export const {toggleDropdown, closeDropdown} = dropDownSlice.actions;
+export const {toggleDropdown, closeDropdown, closeExtraMenu, toggleExtraMenuDropdown} = dropDownSlice.actions;
 export default dropDownSlice.reducer;
